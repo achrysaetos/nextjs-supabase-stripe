@@ -1,34 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Configure Stripe for Production and Deploy Next.js Application with Vercel
 
-## Getting Started
+**[📹 Video](https://egghead.io/lessons/supabase-configure-stripe-for-production-and-deploy-next-js-application-with-vercel)**
 
-First, run the development server:
+There are a few steps to go through to push our application and all of our services to production!
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+1. In order to "activate" our Stripe account, we need to fill out some details about our business.
+2. Update everywhere [http://localhost:3000](http://localhost:3000) is referenced in our application to use the CLIENT_URL environment variable, which can be set to localhost in .env.local.
+3. Create a GitHub repo, and commit and push all of our changes.
+4. Create a Vercel account, import project from GitHub, configure all environment variables and deploy!
+5. Use our Vercel domain to configure our Customer Portal and Webhooks in Stripe.
+6. Update STRIPE_SIGNING_SECRET environment variable in Vercel and manually redeploy.
+7. Update our Site URL in Supabase and remove our test user and profile records.
+8. Create a function hook in Supabase to use our Vercel domain
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+We now have a SaaS application deployed to the Internet that we can start making that side hustle money from!! 🎉
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Enjoyed the course? Follow me on [Twitter](https://twitter.com/jonmeyers_io) and subscribe to my [YouTube channel](https://www.youtube.com/channel/UCPitAIwktfCfcMR4kDWebDQ).
