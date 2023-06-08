@@ -3,6 +3,7 @@ import { supabase } from "../utils/supabase";
 import { useRouter } from "next/router";
 import axios from "axios";
 
+// Share user data across entire application
 const Context = createContext();
 
 const Provider = ({ children }) => {
@@ -12,8 +13,9 @@ const Provider = ({ children }) => {
 
   useEffect(() => {
     const getUserProfile = async () => {
-      const sessionUser = supabase.auth.user();
+      const sessionUser = supabase.auth.user(); // Sets session user on page load and refresh
 
+      // Merge data from profile table with session user so we get user data across entire app
       if (sessionUser) {
         const { data: profile } = await supabase
           .from("profile")
@@ -32,11 +34,13 @@ const Provider = ({ children }) => {
 
     getUserProfile();
 
+    // Listen for changes to authentication (logged in or logged out)
     supabase.auth.onAuthStateChange(() => {
       getUserProfile();
     });
   }, []);
 
+  // Set supabase cookie on sign in or sign out, to track user status when they subscribe
   useEffect(() => {
     axios.post("/api/set-supabase-cookie", {
       event: user ? "SIGNED_IN" : "SIGNED_OUT",
@@ -44,6 +48,7 @@ const Provider = ({ children }) => {
     });
   }, [user]);
 
+  // Immediately update dashboard to show canceled status, but keep subscription until end of billing period
   useEffect(() => {
     if (user) {
       const subscription = supabase
@@ -71,6 +76,7 @@ const Provider = ({ children }) => {
     router.push("/");
   };
 
+  // Expose the user object and auth functions to the entire application
   const exposed = {
     user,
     login,

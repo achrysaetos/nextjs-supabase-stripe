@@ -12,6 +12,7 @@ const handler = async (req, res) => {
 
   let event;
 
+  // Verify webhook is from Stripe
   try {
     event = stripe.webhooks.constructEvent(reqBuffer, signature, signingSecret);
   } catch (error) {
@@ -21,6 +22,7 @@ const handler = async (req, res) => {
 
   const supabase = getServiceSupabase();
 
+  // Update user's subscription changes in supabase, bypassing RLS
   switch (event.type) {
     case "customer.subscription.updated":
       await supabase

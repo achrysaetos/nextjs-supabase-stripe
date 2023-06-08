@@ -7,11 +7,13 @@ const Dashboard = () => {
   const { user, isLoading } = useUser();
   const router = useRouter();
 
+  // Call api to load the stripe customer portal
   const loadPortal = async () => {
     const { data } = await axios.get("/api/portal");
     router.push(data.url);
   };
 
+  // Display dashboard depending on subscription status, and a link to the stripe customer portal
   return (
     <div className="w-full max-w-3xl mx-auto py-16 px-8">
       <h1 className="text-3xl mb-6">Dashboard</h1>
@@ -29,6 +31,7 @@ const Dashboard = () => {
   );
 };
 
+// Load user props
 export const getServerSideProps = async ({ req }) => {
   const { user } = await supabase.auth.api.getUserByCookie(req);
 

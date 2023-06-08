@@ -2,6 +2,7 @@ import { supabase } from "../../utils/supabase";
 import cookie from "cookie";
 import initStripe from "stripe";
 
+// API call to get user from session cookie, then redirect them to their customer portal
 const handler = async (req, res) => {
   const { user } = await supabase.auth.api.getUserByCookie(req);
 

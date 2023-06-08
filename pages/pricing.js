@@ -7,16 +7,18 @@ import Link from "next/link";
 const Pricing = ({ plans }) => {
   const { user, login, isLoading } = useUser();
 
+  // Use axios' fetch api to subscribe to a plan
   const processSubscription = (planId) => async () => {
     const { data } = await axios.get(`/api/subscription/${planId}`);
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
-    await stripe.redirectToCheckout({ sessionId: data.id });
+    await stripe.redirectToCheckout({ sessionId: data.id }); // redirect to Stripe checkout page
   };
 
-  const showSubscribeButton = !!user && !user.is_subscribed;
-  const showCreateAccountButton = !user;
-  const showManageSubscriptionButton = !!user && user.is_subscribed;
+  const showSubscribeButton = !!user && !user.is_subscribed; // have user and not subscribed
+  const showCreateAccountButton = !user; // don't have user
+  const showManageSubscriptionButton = !!user && user.is_subscribed; // have user and is subscribed
 
+  // Display different links depending on whether user is subscribed
   return (
     <div className="w-full max-w-3xl mx-auto py-16 flex justify-around">
       {plans.map((plan) => (
@@ -48,11 +50,13 @@ const Pricing = ({ plans }) => {
   );
 };
 
+// Fetch product data at build time
 export const getStaticProps = async () => {
   const stripe = initStripe(process.env.STRIPE_SECRET_KEY);
 
   const { data: prices } = await stripe.prices.list();
 
+  // Return the product data in workable format
   const plans = await Promise.all(
     prices.map(async (price) => {
       const product = await stripe.products.retrieve(price.product);

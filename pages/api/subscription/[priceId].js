@@ -2,6 +2,7 @@ import { supabase } from "../../../utils/supabase";
 import cookie from "cookie";
 import initStripe from "stripe";
 
+// API call to get user from session cookie, then charge them
 const handler = async (req, res) => {
   const { user } = await supabase.auth.api.getUserByCookie(req);
 
@@ -15,6 +16,7 @@ const handler = async (req, res) => {
     access_token: token,
   });
 
+  // Get stripe customer from session user
   const {
     data: { stripe_customer },
   } = await supabase
@@ -33,6 +35,7 @@ const handler = async (req, res) => {
     },
   ];
 
+  // Charge the customer
   const session = await stripe.checkout.sessions.create({
     customer: stripe_customer,
     mode: "subscription",
