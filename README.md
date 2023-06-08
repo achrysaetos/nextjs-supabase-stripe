@@ -1,8 +1,11 @@
-# Configure Stripe for Production and Deploy Next.js Application with Vercel
+# Next.js, Supabase, and Stripe
 
-**[📹 Video](https://egghead.io/lessons/supabase-configure-stripe-for-production-and-deploy-next-js-application-with-vercel)**
+A lightweight, production-ready template for building SaaS apps. 
 
-There are a few steps to go through to push our application and all of our services to production!
+Note: you will need to set up and configure your own Supabase and Stripe accounts.
+
+
+## Steps to set up for production
 
 1. In order to "activate" our Stripe account, we need to fill out some details about our business.
 2. Update everywhere [http://localhost:3000](http://localhost:3000) is referenced in our application to use the CLIENT_URL environment variable, which can be set to localhost in .env.local.
@@ -13,8 +16,5 @@ There are a few steps to go through to push our application and all of our servi
 7. Update our Site URL in Supabase and remove our test user and profile records.
 8. Create a function hook in Supabase to use our Vercel domain
 
-We now have a SaaS application deployed to the Internet that we can start making that side hustle money from!! 🎉
 
----
-
-Enjoyed the course? Follow me on [Twitter](https://twitter.com/jonmeyers_io) and subscribe to my [YouTube channel](https://www.youtube.com/channel/UCPitAIwktfCfcMR4kDWebDQ).
+*Video tutorial [here](https://egghead.io/lessons/supabase-configure-stripe-for-production-and-deploy-next-js-application-with-vercel)*
