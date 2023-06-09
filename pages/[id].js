@@ -23,9 +23,7 @@ const LessonDetails = ({ lesson }) => {
 
   // Display the lesson title and description for each respective path
   return (
-    <div className="w-full max-w-3xl mx-auto py-16 px-8">
-      <h1 className="text-3xl mb-6">{lesson.title}</h1>
-      <p>{lesson.description}</p>
+    <div className="w-full max-w-3xl mx-auto my-24 px-8">
       {!!videoUrl && <Video url={videoUrl} width="100%" />}
     </div>
   );

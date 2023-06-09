@@ -3,8 +3,16 @@ import { useUser } from "../context/user";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import Link from "next/link";
+import { CheckIcon } from '@heroicons/react/20/solid'
 
-const Pricing = ({ plans }) => {
+const includedFeatures = [
+  'Private forum access',
+  'Member resources',
+  'Entry to annual conference',
+  'Official member t-shirt',
+]
+
+export default function Pricing({ plans }) {
   const { user, login, isLoading } = useUser();
 
   // Use axios' fetch api to subscribe to a plan
@@ -14,41 +22,82 @@ const Pricing = ({ plans }) => {
     await stripe.redirectToCheckout({ sessionId: data.id }); // redirect to Stripe checkout page
   };
 
-  const showSubscribeButton = !!user && !user.is_subscribed; // have user and not subscribed
-  const showCreateAccountButton = !user; // don't have user
-  const showManageSubscriptionButton = !!user && user.is_subscribed; // have user and is subscribed
-
-  // Display different links depending on whether user is subscribed
   return (
-    <div className="w-full max-w-3xl mx-auto py-16 flex justify-around">
-      {plans.map((plan) => (
-        <div key={plan.id} className="w-80 h-40 rounded shadow px-6 py-4">
-          <h2 className="text-xl">{plan.name}</h2>
-          <p className="text-gray-500">
-            ${plan.price / 100} / {plan.interval}
+    <div className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl sm:text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple no-tricks pricing</h2>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas
+            in. Explicabo id ut laborum.
           </p>
-          {!isLoading && (
-            <div>
-              {showSubscribeButton && (
-                <button onClick={processSubscription(plan.id)}>
-                  Subscribe
-                </button>
-              )}
-              {showCreateAccountButton && (
-                <button onClick={login}>Create Account</button>
-              )}
-              {showManageSubscriptionButton && (
-                <Link href="/dashboard">
-                  <a>Manage Subscription</a>
-                </Link>
-              )}
-            </div>
-          )}
         </div>
-      ))}
+        {plans.map((plan) => (
+          <div key={plan.id}>
+            <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+              <div className="p-8 sm:p-10 lg:flex-auto">
+                <h3 className="text-2xl font-bold tracking-tight text-gray-900">{plan.name}</h3>
+                <p className="mt-6 text-base leading-7 text-gray-600">
+                  Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis
+                  repellendus etur quidem assumenda.
+                </p>
+                <div className="mt-10 flex items-center gap-x-4">
+                  <h4 className="flex-none text-sm font-semibold leading-6 text-indigo-600">What’s included</h4>
+                  <div className="h-px flex-auto bg-gray-100" />
+                </div>
+                <ul role="list" className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
+                  {includedFeatures.map((feature) => (
+                    <li key={feature} className="flex gap-x-3">
+                      <CheckIcon className="h-6 w-5 flex-none text-indigo-600" aria-hidden="true" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+                <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+                  <div className="mx-auto max-w-xs px-8">
+                    <p className="text-base font-semibold text-gray-600">Pay once, own it forever</p>
+                    <p className="mt-6 flex items-baseline justify-center gap-x-2">
+                      <span className="text-5xl font-bold tracking-tight text-gray-900">${plan.price / 100}</span>
+                      <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">USD / {plan.interval}</span>
+                    </p>
+                    {!!user && !user.is_subscribed && (
+                      <button 
+                        onClick={processSubscription(plan.id)}
+                        className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Subscribe
+                      </button>
+                    )}
+                    {!user && (
+                      <button 
+                        onClick={login} 
+                        className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Create Account
+                      </button>
+                    )}
+                    {!!user && user.is_subscribed && (
+                      <Link href="/subscription">
+                        <a className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                          Manage Subscription
+                        </a>
+                      </Link>
+                    )}
+                    <p className="mt-6 text-xs leading-5 text-gray-600">
+                      Invoices and receipts available for easy company reimbursement
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-  );
-};
+  )
+}
 
 // Fetch product data at build time
 export const getStaticProps = async () => {
@@ -78,5 +127,3 @@ export const getStaticProps = async () => {
     },
   };
 };
-
-export default Pricing;
