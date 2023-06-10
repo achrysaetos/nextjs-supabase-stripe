@@ -4,14 +4,19 @@ import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useUser } from "../context/user";
 
-const navigation_landing = [
+const nav_noauth = [
   { name: 'Product', href: '/public/product' },
   { name: 'Features', href: '/public/features' },
   { name: 'Pricing', href: '/public/pricing' },
   { name: 'FAQs', href: '/public/faq' },
 ]
 
-const navigation_dashboard = [
+const nav_nosub = [
+  { name: 'Dashboard', href: '/dashboard' },
+  { name: 'Pricing', href: '/public/pricing' },
+]
+
+const nav_sub = [
   { name: 'Dashboard', href: '/dashboard' },
   { name: 'Subscription', href: '/subscription' },
 ]
@@ -25,14 +30,16 @@ const Nav = () => {
       {/* Browser menu ------------------------------------------------------------------------------------------------------- */}
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <a href={user ? "/dashboard" : "/"} className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
-          </a>
+          <Link href={user ? "/dashboard" : "/"}>
+            <a className="-m-1.5 p-1.5">
+              <span className="sr-only">Your Company</span>
+              <img
+                className="h-8 w-auto"
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                alt=""
+              />
+            </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -45,13 +52,21 @@ const Nav = () => {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          {!!user ? navigation_dashboard.map((item) => (
+          {!!user && !user.is_subscribed && nav_nosub.map((item) => (
             <Link key={item.name} href={item.href}>
               <a className="text-sm font-semibold leading-6 text-gray-900">
                 {item.name}
               </a>
             </Link>
-          )) : navigation_landing.map((item) => (
+          ))}
+          {!user && nav_noauth.map((item) => (
+            <Link key={item.name} href={item.href}>
+              <a className="text-sm font-semibold leading-6 text-gray-900">
+                {item.name}
+              </a>
+            </Link>
+          ))}
+          {!!user && user.is_subscribed && nav_sub.map((item) => (
             <Link key={item.name} href={item.href}>
               <a className="text-sm font-semibold leading-6 text-gray-900">
                 {item.name}
@@ -74,14 +89,16 @@ const Nav = () => {
         <div className="fixed inset-0 z-50" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href={user ? "/dashboard" : "/"} className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
-            </a>
+            <Link href={user ? "/dashboard" : "/"}>
+              <a className="-m-1.5 p-1.5">
+                <span className="sr-only">Your Company</span>
+                <img
+                  className="h-8 w-auto"
+                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                  alt=""
+                />
+              </a>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -94,13 +111,21 @@ const Nav = () => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {!!user ? navigation_dashboard.map((item) => (
+                {!!user && !user.is_subscribed && nav_nosub.map((item) => (
                   <Link key={item.name} href={item.href}>
                     <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                       {item.name}
                     </a>
                   </Link>
-                )) : navigation_landing.map((item) => (
+                ))}
+                {!user && nav_noauth.map((item) => (
+                  <Link key={item.name} href={item.href}>
+                    <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                      {item.name}
+                    </a>
+                  </Link>
+                ))}
+                {!!user && user.is_subscribed && nav_sub.map((item) => (
                   <Link key={item.name} href={item.href}>
                     <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                       {item.name}

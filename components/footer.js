@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
     return(
       <footer className="bg-gray-100">
@@ -6,14 +8,16 @@ export default function Footer() {
             <div>
               <div className="flex justify-center text-teal-600 lg:justify-start">
                 <div className="flex lg:flex-1">
-                  <a href="#" className="-m-1.5 p-1.5">
-                    <span className="sr-only">Your Company</span>
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                      alt=""
-                    />
-                  </a>
+                  <Link href="/">
+                    <a className="-m-1.5 p-1.5">
+                      <span className="sr-only">Your Company</span>
+                      <img
+                        className="h-8 w-auto"
+                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        alt=""
+                      />
+                    </a>
+                  </Link>
                 </div>
               </div>
 
@@ -25,24 +29,32 @@ export default function Footer() {
 
             <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:mt-0 lg:justify-end lg:gap-12">
               <li>
-                <a className="text-gray-700 transition hover:text-gray-700/75" href="/public/about">
-                  About
-                </a>
+                <Link href="/public/about">
+                  <a className="text-gray-700 transition hover:text-gray-700/75">
+                    About
+                  </a>
+                </Link>
               </li>
               <li>
-                <a className="text-gray-700 transition hover:text-gray-700/75" href="/public/support">
-                  Support
-                </a>
+                <Link href="/public/support">
+                  <a className="text-gray-700 transition hover:text-gray-700/75">
+                    Support
+                  </a>
+                </Link>
               </li>
               <li>
-                <a className="text-gray-700 transition hover:text-gray-700/75" href="/public/terms">
-                  Terms of Service
-                </a>
+                <Link href="/public/terms">
+                  <a className="text-gray-700 transition hover:text-gray-700/75">
+                    Terms of Service
+                  </a>
+                </Link>
               </li>
               <li>
-                <a className="text-gray-700 transition hover:text-gray-700/75" href="/public/privacy">
-                  Privacy Policy
-                </a>
+                <Link href="/public/privacy">
+                  <a className="text-gray-700 transition hover:text-gray-700/75">
+                    Privacy Policy
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>

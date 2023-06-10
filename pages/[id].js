@@ -35,9 +35,15 @@ const LessonDetails = ({ lesson }) => {
   return isLoading ? (
     <Spinner />
   ) : (
-    <div className="w-full max-w-3xl mx-auto my-24 px-8">
-      {!!videoUrl && <Video url={videoUrl} width="100%" />}
-    </div>
+    user.is_subscribed ? (
+      <div className="w-full max-w-3xl mx-auto my-24 px-8">
+        {!!videoUrl && <Video url={videoUrl} width="100%" />}
+      </div>
+    ) : (
+      <div className="grid h-screen px-4 bg-white place-content-center">
+        <h1 className="tracking-widest text-gray-500 uppercase">Subscribe for Premium Content</h1>
+      </div>
+    )
   );
 };
 
