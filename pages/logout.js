@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useUser } from "../context/user";
+import Spinner from "../components/spinner";
 
 // Call useUser() on mount
 const Logout = () => {
@@ -7,7 +8,7 @@ const Logout = () => {
 
   useEffect(logout, []);
 
-  return <p>Logging out</p>;
+  return <Spinner />;
 };
 
 export default Logout;

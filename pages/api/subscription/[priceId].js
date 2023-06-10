@@ -41,8 +41,8 @@ const handler = async (req, res) => {
     mode: "subscription",
     payment_method_types: ["card"],
     line_items: lineItems,
-    success_url: `${process.env.CLIENT_URL}/payment/success`,
-    cancel_url: `${process.env.CLIENT_URL}/payment/cancelled`,
+    success_url: `${process.env.CLIENT_URL}/dashboard`,
+    cancel_url: `${process.env.CLIENT_URL}/dashboard`,
   });
 
   res.send({

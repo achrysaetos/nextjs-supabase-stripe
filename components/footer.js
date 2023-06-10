@@ -25,23 +25,23 @@ export default function Footer() {
 
             <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:mt-0 lg:justify-end lg:gap-12">
               <li>
-                <a className="text-gray-700 transition hover:text-gray-700/75" href="/">
+                <a className="text-gray-700 transition hover:text-gray-700/75" href="/public/about">
                   About
                 </a>
               </li>
               <li>
-                <a className="text-gray-700 transition hover:text-gray-700/75" href="/">
-                  Services
+                <a className="text-gray-700 transition hover:text-gray-700/75" href="/public/support">
+                  Support
                 </a>
               </li>
               <li>
-                <a className="text-gray-700 transition hover:text-gray-700/75" href="/">
-                  Projects
+                <a className="text-gray-700 transition hover:text-gray-700/75" href="/public/terms">
+                  Terms of Service
                 </a>
               </li>
               <li>
-                <a className="text-gray-700 transition hover:text-gray-700/75" href="/">
-                  Blog
+                <a className="text-gray-700 transition hover:text-gray-700/75" href="/public/privacy">
+                  Privacy Policy
                 </a>
               </li>
             </ul>

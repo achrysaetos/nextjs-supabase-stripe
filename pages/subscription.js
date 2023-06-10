@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { supabase } from "../utils/supabase";
 import { useUser } from "../context/user";
+import Spinner from "../components/spinner";
 
 const Subscription = () => {
   const { user, isLoading } = useUser();
@@ -16,7 +17,7 @@ const Subscription = () => {
 
   useEffect(loadPortal, []);
 
-  return <p>Loading portal</p>;
+  return <Spinner />;
 };
 
 // Load user props

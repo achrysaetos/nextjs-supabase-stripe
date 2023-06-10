@@ -1,13 +1,24 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { supabase } from "../utils/supabase";
 import { useUser } from "../context/user";
+import Spinner from "../components/spinner";
 
 export default function Dashboard({ lessons }) {
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
+  const router = useRouter();
   console.log({ user });
 
+  // Redirect to landing if user is not logged in
+  useEffect(() => {
+    if (!user) router.push("/");
+  }, [user]);
+
   // Use the pre-rendered props from getStaticProps() to display all lessons
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className="w-full max-w-3xl mx-auto my-24 px-2">
       {lessons.map((lesson) => (
         <Link key={lesson.id} href={`/${lesson.id}`}>

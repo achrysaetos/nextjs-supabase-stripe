@@ -1,5 +1,5 @@
 import { ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon } from '@heroicons/react/24/outline'
-import Footer from '../components/footer'
+import Footer from '../../components/footer'
 
 const questions = [
   {
@@ -23,12 +23,12 @@ const questions = [
     icon: FingerPrintIcon,
   },
   {
-    q: 'Simple queues?',
+    q: 'What else?',
     a: 'Quisque est vel vulputate cursus. Risus proin diam nunc commodo. Lobortis auctor congue commodo diam neque.',
     icon: ArrowPathIcon,
   },
   {
-    q: 'Advanced security?',
+    q: 'And more?',
     a: 'Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.',
     icon: FingerPrintIcon,
   },

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useUser } from "../context/user";
+import Spinner from "../components/spinner";
 
 // Call useUser() on mount
 const Login = () => {
@@ -7,7 +8,7 @@ const Login = () => {
 
   useEffect(login, []);
 
-  return <p>Logging in</p>;
+  return <Spinner />;
 };
 
 export default Login;

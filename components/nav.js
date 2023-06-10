@@ -5,10 +5,10 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useUser } from "../context/user";
 
 const navigation_landing = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Pricing', href: '/pricing' },
-  { name: 'FAQs', href: 'faq' },
+  { name: 'Product', href: '/public/product' },
+  { name: 'Features', href: '/public/features' },
+  { name: 'Pricing', href: '/public/pricing' },
+  { name: 'FAQs', href: '/public/faq' },
 ]
 
 const navigation_dashboard = [

@@ -1,9 +1,19 @@
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { supabase } from "../utils/supabase";
 import Video from "react-player";
+import { supabase } from "../utils/supabase";
+import { useUser } from "../context/user";
+import Spinner from "../components/spinner";
 
 const LessonDetails = ({ lesson }) => {
+  const { user, isLoading } = useUser();
+  const router = useRouter();
   const [videoUrl, setVideoUrl] = useState();
+
+  // Redirect to landing if user is not logged in
+  useEffect(() => {
+    if (!user) router.push("/");
+  }, [user]);
 
   // Display premium content
   const getPremiumContent = async () => {
@@ -22,7 +32,9 @@ const LessonDetails = ({ lesson }) => {
   }, []);
 
   // Display the lesson title and description for each respective path
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className="w-full max-w-3xl mx-auto my-24 px-8">
       {!!videoUrl && <Video url={videoUrl} width="100%" />}
     </div>
